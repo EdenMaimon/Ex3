@@ -3,4 +3,4 @@ project(Ex3)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Ex3 main.cpp Interpreter.h Interpreter.cpp Command.h Expression.h CommandExpression.h clientTast.cpp clientTast.h)
+add_executable(Ex3 main.cpp Interpreter.h Interpreter.cpp Command.h Expression.h CommandExpression.h clientTast.cpp clientTast.h ThreadSafeMap.h)

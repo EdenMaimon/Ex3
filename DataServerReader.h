@@ -4,11 +4,22 @@
 
 #ifndef EX3_DATASERVERREADER_H
 #define EX3_DATASERVERREADER_H
-
+#include <iostream>
+#include <netinet/in.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <string>
+#include <unistd.h>
+#include <string>
+#include <strings.h>
+#include <vector>
+#include <sstream>
 class DataServerReader{
 
 public:
-    void openserver(int port int hz);
+    int openServer(int port, int hz);
+    void splitMessageByComma(std::vector<std::string> &elems,char line[]);
 private:
 
 };

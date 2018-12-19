@@ -98,7 +98,8 @@ void DataServerReader::createServerAndThread(int port, int hz) {
     thread_data->port=port;
     thread_data->hz =hz;
 
-    pthread_create(&t1, NULL, &openServer,thread_data);
+    pthread_create(&t1, nullptr, &openServer,thread_data);
+    pthread_join(t1, nullptr);
 }
 
 

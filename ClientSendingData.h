@@ -12,9 +12,11 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string>
+#include <unistd.h>
 #include "iostream"
 class ClientSendingData{
 public:
+   ~ClientSendingData();
     int creatSocketAndConnectToServer(std::string ip,int port);
     void writeMessage(std::string mess);
 

@@ -15,19 +15,17 @@ void ClientSendingData::writeMessage(std::string mess) {
     char buffer[1024] = {0};
 
     //sent the message throw the socket
-    if(send(sock , mess_char , strlen(mess_char) , 0 )<0)
+    if(send(this->sock , mess_char , strlen(mess_char) , 0 )<0)
         cout<<"ERROR in sending message"<<endl;
 
-
-    printf("%s\n",buffer );
 
 }
 //"192.168.56.1"
 int ClientSendingData::creatSocketAndConnectToServer(std::string ip, int port) {
 
     struct sockaddr_in address{};
-    int sock = 0, valread;
-    char *hello="ofra haza rules";
+    int sock = 0;
+
     struct sockaddr_in serv_addr{};
 
 
@@ -53,13 +51,18 @@ int ClientSendingData::creatSocketAndConnectToServer(std::string ip, int port) {
         return -1;
     }
 
-    int sock_id=connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
-    if ( sock_id< 0)
+
+    if ( connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr))< 0)
     {
         printf("\nConnection Failed \n");
         return -1;
     }
-    this->sock=sock_id;
+    this->sock=sock;
+
 
     return 0;
+}
+
+ClientSendingData::~ClientSendingData() {
+        close(this->sock);
 }

@@ -2,29 +2,37 @@
 #include "DataServerReader.h"
 
 using namespace std;
-#define MAXPACKETSIZE 256
 
-int DataServerReader::openServer(int port, int hz) {
+struct Thread_data {
+    int port;
+    int hz;
+};
 
+void *DataServerReader::openServer(void *arg) {
+    printf("entered thefunction\n");
+    struct Thread_data* thread_data;
+    thread_data = (Thread_data*) arg;
+
+    int hz= thread_data->hz;
 
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (-1 == sock) {
         printf("Error creating socket\n");
-        return 1;
+        exit(1);
     }
     struct sockaddr_in my_addr = {0};
     my_addr.sin_family = AF_INET;
     my_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-    my_addr.sin_port = htons(port);
+    my_addr.sin_port = htons(thread_data->port);
     int result = bind(sock, (struct sockaddr *) &my_addr, sizeof(my_addr));
     if (-1 == result) {
         printf("Bind error\n");
-        return 2;
+        exit(1);
     }
     result = listen(sock, 5);
     if (-1 == result) {
         printf("listen error");
-        return 3;
+        exit(1);
     }
     struct sockaddr_in clientAddress = {0};
 
@@ -49,19 +57,17 @@ int DataServerReader::openServer(int port, int hz) {
 
         //Split the message by comma
         vector <string> v;
-        this->splitMessageByComma(v,buffer);
+        splitMessageByComma(v,buffer);
 
         //call datamanager fot updating the map with the v message
         //....
-
-
 
         if (n < 0) {
             perror("ERROR writing to socket");
             exit(1);
         }
     }
-    return 0;
+
 }
 /**
  * Splits a string line by the delimeter ','
@@ -78,3 +84,22 @@ void DataServerReader::splitMessageByComma(std::vector<std::string> &elems, char
     }
 
 }
+
+void DataServerReader::createServerAndThread(int port, int hz) {
+
+    //the thread
+    pthread_t t1;
+
+    //struct of information to be sent to the function
+
+    //An instance of the thread data
+    struct Thread_data *thread_data;
+    thread_data = new Thread_data();
+    thread_data->port=port;
+    thread_data->hz =hz;
+
+    pthread_create(&t1, NULL, &openServer,thread_data);
+}
+
+
+

@@ -15,11 +15,13 @@
 #include <strings.h>
 #include <vector>
 #include <sstream>
+#include <pthread.h>
 class DataServerReader{
 
 public:
-    int openServer(int port, int hz);
-    void splitMessageByComma(std::vector<std::string> &elems,char line[]);
+    static void* openServer(void* arg);
+    static void splitMessageByComma(std::vector<std::string> &elems,char line[]);
+    void createServerAndThread(int port,int hz);
 private:
 
 };

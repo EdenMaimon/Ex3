@@ -8,11 +8,15 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include "ClientSendingData.h"
-#define PORT 5402
-
+#include "DataServerReader.h"
 int main(int argc, char const *argv[])
 {
-    ClientSendingData client;
+    DataServerReader server;
+    server.createServerAndThread(5400,10);
+
+   /* ClientSendingData client;
     client.creatSocketAndConnectToServer("192.168.56.1",5402);
     client.writeMessage("Can you fell the love tonight??");
+    */
+
 }

@@ -18,9 +18,14 @@ void ClientSendingData::writeMessage(std::string mess) {
     if(send(this->sock , mess_char , strlen(mess_char) , 0 )<0)
         cout<<"ERROR in sending message"<<endl;
 
-
 }
 //"192.168.56.1"
+/**
+ * This function creates a client socket and connect to a server
+ * @param ip
+ * @param port
+ * @return
+ */
 int ClientSendingData::creatSocketAndConnectToServer(std::string ip, int port) {
 
     struct sockaddr_in address{};

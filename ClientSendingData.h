@@ -19,8 +19,10 @@ public:
    ~ClientSendingData();
     int creatSocketAndConnectToServer(std::string ip,int port);
     void writeMessage(std::string mess);
+    bool SockOpen(){return this->isSockOpen;}
 
 private:
     int sock=0;
+    bool isSockOpen=false;
 };
 #endif //EX3_CLIENTSENDINGDATA_H

@@ -63,11 +63,12 @@ int ClientSendingData::creatSocketAndConnectToServer(std::string ip, int port) {
         return -1;
     }
     this->sock=sock;
-
+    this->isSockOpen=true;
 
     return 0;
 }
 
 ClientSendingData::~ClientSendingData() {
         close(this->sock);
+        this->isSockOpen=false;
 }

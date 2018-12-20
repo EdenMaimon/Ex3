@@ -9,12 +9,13 @@
 #include "ThreadSafeMap.h"
 #include "ClientSendingData.h"
 
-class BoundedVariable : Variable {
+class BoundedVariable :public Variable {
 public:
     BoundedVariable(ThreadSafeMap <std::string,double> safe_map, std::string value,ClientSendingData* cl);
     virtual double calculate();
     virtual void setValue(double value);
     virtual double  getValue();
+    std::string getpath(){return this->value;}
 
 private:
     ThreadSafeMap<std::string, double> path_value_table;

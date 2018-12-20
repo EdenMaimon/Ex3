@@ -55,6 +55,7 @@ void *DataServerReader::openServer(void *arg) {
 
         printf("Here is the message: %s\n", buffer);
 
+
         //Split the message by comma
         vector <string> v;
         splitMessageByComma(v,buffer);
@@ -66,6 +67,7 @@ void *DataServerReader::openServer(void *arg) {
             perror("ERROR writing to socket");
             exit(1);
         }
+        //sleep(100);
     }
 
 }

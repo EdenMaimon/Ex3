@@ -19,10 +19,10 @@ public:
     DataManager();
     void bind(std::string var, std::string anchor);
     void update(std::vector<std::string> mess);
-
+    ~DataManager();
 
 private:
-    std::map<std::string, Variable> symbolTable;
+    std::map<std::string, Variable*> symbolTable;
 
     ThreadSafeMap<std::string,double> path_value_table;
 

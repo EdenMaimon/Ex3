@@ -6,7 +6,7 @@ void DataManager::bind(std::string var, std::string anchor) {
     if(anchor.find("/") == string::npos){
 
 
-        BoundedVariable new_var(this->path_value_table,anchor,this->client);
+        Variable* new_var =new BoundedVariable (this->path_value_table,anchor,this->client);
 
         this->symbolTable[var] = new_var;
 
@@ -15,11 +15,11 @@ void DataManager::bind(std::string var, std::string anchor) {
 
     //if anchor is not a path, than it is a var
 
-    //dwon cast the variable to bounded var to get the path
-    BoundedVariable &temp = dynamic_cast<BoundedVariable&>(this->symbolTable[var]);
+//    dwon cast the variable to bounded var to get the path
+    BoundedVariable* temp = dynamic_cast<BoundedVariable*>(this->symbolTable[var]);
 
     //create new baoundvariable
-    BoundedVariable new_var(this->path_value_table,temp.getpath(),this->client);
+    Variable* new_var=new BoundedVariable(this->path_value_table,temp->getpath(),this->client);
 
     this->symbolTable[var]=new_var;
 

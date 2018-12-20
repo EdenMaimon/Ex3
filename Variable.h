@@ -9,7 +9,7 @@
 
 class Variable: Expression{
 public:
-    double calculate()=0;
+    virtual double calculate()=0;
     virtual void setValue(double value)=0;
     virtual double  getValue()=0;
 

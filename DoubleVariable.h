@@ -7,7 +7,7 @@
 
 #include "Variable.h"
 
-class DoubleVariable : public Variable {
+class DoubleVariable : public Variable  {
 public:
     DoubleVariable(double value){this->value=value;}
     virtual double calculate(){return this->value;};

@@ -32,7 +32,7 @@ double BoundedVariable::getValue() {
  */
 void BoundedVariable::setValue(double value) {
 
-    std::string mess = "set" + this->value + " " + std::to_string(value)+"\n";
+    std::string mess = "set" + this->value + " " + std::to_string(value)+"\r\n";
 
     if (this->client->SockOpen()) {
         this->client->writeMessage(mess);

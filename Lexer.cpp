@@ -2,7 +2,7 @@
 
 using namespace std;
 
-bool Lexer::isDigit(char c) {return (c <= 59 && c >= 48);}
+bool Lexer::isDigit(char c) { return (c <= 59 && c >= 48); }
 
 bool Lexer::endWithDigit(string &s) { return isDigit(s.at(s.length() - 1)); }
 
@@ -20,7 +20,6 @@ void Lexer::splitStrlingByDelimerer(std::string s, std::vector<std::string> &ele
     while (std::getline(ss, item, delim)) {
         elems.push_back(std::move(item)); // if C++11 (based on comment from @mchiasson)
     }
-
 }
 
 /**
@@ -30,10 +29,10 @@ void Lexer::splitStrlingByDelimerer(std::string s, std::vector<std::string> &ele
  * @param para the vectpr to hold the parameters
  * @param spliter the spliter by which we devide the parameters
  */
-void Lexer::prepareParameters( std::vector<string>::iterator it, std::vector<std::string>::iterator end,
+void Lexer::prepareParameters(std::vector<string>::iterator it, std::vector<std::string>::iterator end,
                               std::vector<string> &para, const string &spliter) {
 
-    string temp = "";
+    string temp ="";
     int spliter_pos;
     //iterate over the vector of the seperated line
     while ((it + 1) != end) {
@@ -44,7 +43,7 @@ void Lexer::prepareParameters( std::vector<string>::iterator it, std::vector<std
             continue;
         }
         //remove any space found in the string currently handled
-        (*it).erase(remove((*it).begin(), (*it).end(), '\s'), (*it).end());
+        (*it).erase(remove((*it).begin(), (*it).end(), ' '), (*it).end());
         //if the specific value represents the last part of a parameters
         if (endWithDigit((*it)) && startWithDigit(*(it + 1)) ||
             endWithChar((*it), ')') && startsWithChar(*(it + 1), '(')
@@ -137,29 +136,42 @@ void Lexer::stripFromStart(string &line) {
 
 }
 
+void Lexer::stripFromEnd(string &line) {
+
+    //strip the line string
+    for (int i = line.length() - 1; i >= 0; i--) {
+
+        if (' ' != line.at(i) && '\t' != line.at(i)) {
+            line.erase(i+1,line.length()-i-1);
+            break;
+        }
+    }
+}
+
 //add fileCreator*cl
 //get the para with pushed "while" of "if"
 void Lexer::scopedLexer(string &line, vector<string> &para) {
-    //****************************DELETE*****************************************************
 
     string first;
     int open_suger = 1, closed_suger = 0, close_pos;
     deleteCharFromString(line, '{');
     conditionLexer(line, para);
 
-    bool flag;
+    bool flag, isCloseSuger;
     while (open_suger > closed_suger) {
 
+        isCloseSuger=false;
         flag = false;
 
         this->fIleCreator->readLine(line);
 
         //if there is a }, make it with a space before so it will be seperated into a new cell
-        close_pos=line.find("}") != -1;
+        close_pos = line.find('}');
 
         if (close_pos != -1) {
             ++closed_suger;
-            line=line.replace(close_pos,1," }");
+            line = line.replace(close_pos, 1, " } ");
+            isCloseSuger=true;
         }
 
 
@@ -213,6 +225,9 @@ void Lexer::scopedLexer(string &line, vector<string> &para) {
             equalityLexer(line, para);
         }
 
+        if(isCloseSuger){
+            para.push_back("}");
+        }
     }
 }
 
@@ -267,7 +282,7 @@ void Lexer::varLexer(string &line, vector<string> &para) {
         return;
     }
     //if there is "=" in the string, check for bind command
-    int bind_pos1 =(line.find(" bind "));
+    int bind_pos1 = (line.find(" bind "));
     int bind_pos2 = line.find("=bind ");
     //if there is no bind but there is "="
     if (bind_pos1 == -1 && bind_pos2 == -1) {
@@ -325,7 +340,7 @@ void Lexer::connectLexer(string &line, vector<string> &para) {
     vector<string> seperated_line;
     para.push_back("connect");
     splitStrlingByDelimerer(line, seperated_line);
-    prepareParameters((seperated_line.begin()+1), seperated_line.end(), para, ",");
+    prepareParameters((seperated_line.begin() + 1), seperated_line.end(), para, ",");
 }
 
 void Lexer::sleepLexer(string &line, vector<string> &para) {
@@ -341,5 +356,68 @@ void Lexer::openDataServerLexer(string &line, vector<string> &para) {
     para.push_back("openDataServer");
     splitStrlingByDelimerer(line, seperated_line);
     prepareParameters((seperated_line.begin() + 1), seperated_line.end(), para, ",");
+}
+
+void Lexer::mainLexer() {
+    string line,first_word;
+    this->fIleCreator->readLine(line);
+    vector<string> parameters;
+    bool flag=false;
+    stripFromStart(line);
+    stripFromEnd(line);
+
+    firstWord(line, first_word);
+
+    if(first_word == "if") {
+        parameters.push_back("if");
+        scopedLexer(line,parameters);
+        flag= true;
+    }
+
+    if(first_word == "while"){
+        parameters.push_back("while");
+        scopedLexer(line,parameters);
+        flag= true;
+    }
+
+    if(first_word == "var") {
+        varLexer(line, parameters);
+        flag= true;
+    }
+
+    if(first_word == "openDataServer"){
+        openDataServerLexer(line,parameters);
+        flag= true;
+    }
+
+    if(first_word == "connect"){
+        connectLexer(line,parameters);
+        flag= true;
+    }
+    if(first_word == "sleep"){
+        sleepLexer(line,parameters);
+        flag= true;
+    }
+    if(first_word == "print"){
+        printLexer(line,parameters);
+        flag= true;
+    }
+
+    if(!flag){
+        equalityLexer(line,parameters);
+    }
+
+    //*************DELETE***********************
+     for(int i=0; i < parameters.size();++i){
+         cout<<parameters[i]<<"|";
+     }
+     cout<<endl;
+
+}
+
+void Lexer::lexer() {
+    while(!this->fIleCreator->wasEndOfFileReached()){
+        this->mainLexer();
+    }
 }
 

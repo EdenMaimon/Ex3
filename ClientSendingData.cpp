@@ -8,6 +8,7 @@ using namespace std;
 
 void ClientSendingData::writeMessage(std::string mess) {
 
+    int valread;
     //convert the message to char*
     char mess_char [mess.length()];
     strcpy(mess_char, mess.c_str());
@@ -17,7 +18,8 @@ void ClientSendingData::writeMessage(std::string mess) {
     //sent the message throw the socket
     if(send(this->sock , mess_char , strlen(mess_char) , 0 )<0)
         cout<<"ERROR in sending message"<<endl;
-
+    valread=read(sock,buffer,1024);
+    cout<<buffer<<endl;
 }
 //"192.168.56.1"
 /**

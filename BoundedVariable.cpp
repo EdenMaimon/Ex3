@@ -6,17 +6,18 @@
  * @param value
  * @param cl
  */
-BoundedVariable::BoundedVariable(ThreadSafeMap<string, double> safe_map, std::string value,
-                                 ClientSendingData *cl) : path_value_table(safe_map) {
+BoundedVariable::BoundedVariable(std::string value,
+                                 ClientSendingData *cl,ThreadSafeMap<std::string,double>* path_value_table){
     this->path = value;
     this->client = cl;
+    this->path_value_table=path_value_table;
 }
 /**
  * Return the double value being hold to this variable path
  * @return
  */
 double BoundedVariable::calculate() {
-    return this->path_value_table.getValue(this->path);
+    return this->path_value_table->getValue(this->path);
 }
 
 /**

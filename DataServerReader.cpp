@@ -6,6 +6,7 @@ using namespace std;
 struct Thread_data {
     int port;
     int hz;
+    ThreadSafeMap<std::string,double>* table;
 };
 
 void *DataServerReader::openServer(void *arg) {
@@ -60,8 +61,7 @@ void *DataServerReader::openServer(void *arg) {
         vector <string> v;
         splitMessageByComma(v,buffer);
 
-        //call datamanager fot updating the map with the v message
-        //....
+        update(v,thread_data->table);
 
         if (n < 0) {
             perror("ERROR writing to socket");
@@ -99,10 +99,18 @@ void DataServerReader::createServerAndThread(int port, int hz) {
     thread_data = new Thread_data();
     thread_data->port=port;
     thread_data->hz =hz;
+    thread_data->table=this->path_value_table;
 
     pthread_create(&t1, nullptr, &openServer,thread_data);
-    pthread_join(t1, nullptr);
+
 }
+
+void DataServerReader::update(vector<string> mess, ThreadSafeMap<std::string, double> *path_value_table) {
+    for (int i = 0; i < mess.size(); ++i) {
+        path_value_table->setKeyValue(path_order[i], std::stod(mess[i]));
+    }
+}
+
 
 
 

@@ -7,32 +7,25 @@
 
 #include <vector>
 #include "ThreadSafeMap.h"
-#include "BoundedVariable.h"
+#include "ClientSendingData.h"
 #include "DoubleVariable.h"
 #include "map"
 #include "string"
 #include "DataServerReader.h"
-
 class DataManager{
 
 public:
-    DataManager();
-
+    DataManager(ThreadSafeMap<std::string,double>* table);
     void addNewVale(std::string var_name, Variable* var);
     void bind(std::string var, std::string anchor);
-    void update(std::vector<std::string> mess);
-
+    double getValueFromPathValueMap(std::string path);
     ~DataManager();
 
 
 private:
     std::map<std::string, Variable*> symbolTable;
 
-    ThreadSafeMap<std::string,double> path_value_table;
-
-     vector<const char*>  path_order ;
-
-    DataServerReader* data_server_reader;
+    ThreadSafeMap<std::string,double>* path_value_table;
 
     ClientSendingData* client;
 

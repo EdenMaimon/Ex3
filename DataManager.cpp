@@ -49,3 +49,8 @@ double DataManager::getValueFromPathValueMap(std::string path) {
     return  this->path_value_table->getValue(path);
 }
 
+void DataManager::setValueOfVariable(std::string var_name, double newValue) {
+
+    this->symbolTable[var_name]->setValue(newValue);
+}
+

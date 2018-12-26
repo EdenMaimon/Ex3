@@ -1,16 +1,15 @@
 
-#include "Plus.h"
-#include "Number.h"
-#include "Mul.h"
-#include "Minus.h"
-#include "Div.h"
 #include <queue>
 #include <stack>
-#include <iterator>
-#include <vector>
-#include <map>
-#include <string>
+#include "Expression.h"
+#include "Minus.h"
+#include "Plus.h"
+#include "Div.h"
+#include "Mul.h"
+#include "map"
 using  namespace std;
+
+
 
 Expression *toExp(stack<string> &stack_str) {
     if(stack_str.empty()){
@@ -29,12 +28,10 @@ Expression *toExp(stack<string> &stack_str) {
     }
     stack_str.pop();
 }
+string getNUm(){
 
-string varToNum(string var){
-    return "1234567";
 }
-
-//(5+4)/2
+//Shunting_yard
 Expression* Shunting_yard(string str) {
     string sofi = "";
     queue<string> q;
@@ -87,7 +84,7 @@ Expression* Shunting_yard(string str) {
                     break;
                 }
             }
-            s.push(varToNum(num));
+            //getNum(num);
         }
         else while (isdigit(str[i])) {
                 num.push_back(str[i]);
@@ -113,10 +110,5 @@ Expression* Shunting_yard(string str) {
     }
 
     return toExp(sFinal);
-    /*while (!q.empty())
-    {
-        sofi.insert(0, (q.front()));
-        q.pop();
-    }*/
 }
 

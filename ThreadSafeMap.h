@@ -62,23 +62,6 @@ V ThreadSafeMap<K, V>::getValue(const K& k) {
     return (*this->m_map)[k];
 }
 
-/**
- * Rerutns the key that hold the value
- * @tparam K
- * @tparam V
- * @param k
- * @return
- */
-template<typename K, typename V>
-V ThreadSafeMap<K, V>::findKeyForValue(const K &k) {
-    lock_guard<mutex> guard(*this->m_mutex);
-
-
-
-
-
-
-}
 
 
 #endif //EX3_THREADSAFEMAP_H

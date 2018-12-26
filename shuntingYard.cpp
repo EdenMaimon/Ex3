@@ -2,7 +2,7 @@
 // Created by eden on 12/26/18.
 //
 
-
+/*
 #include "shuntingYard.h"
 using namespace std;
 
@@ -154,6 +154,9 @@ Expression * ShuntingYard::createExpressions(std::stack<std::string> &prefix) {
 		throw "input error";
 	}
 }
+
+*/
+
 
 
 

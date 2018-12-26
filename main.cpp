@@ -12,6 +12,7 @@
 #include "BoundedVariable.h"
 #include "DoubleVariable.h"
 
+
 using namespace std;
 
 
@@ -49,6 +50,13 @@ int main(int argc, char** argv)
 
     e= new DoubleVariable(33);
     cout<<e->toString()<<endl;
+
+    e=new Minus(e2,e3);
+    cout<<e->toString()<<endl;
+
+    /*e=Shunting_yard("5+4/3");
+    cout<<e->toString()<<"="<<e->calculate()<<endl;
+*/
 
     delete e;
 

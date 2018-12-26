@@ -10,6 +10,6 @@ double Minus::calculate(){
 }
 
 Minus::~Minus() {
-    delete left;
-    delete right;
+    if(left!=nullptr) delete left;
+    if(right!= nullptr) delete right;
 }

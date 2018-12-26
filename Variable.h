@@ -7,11 +7,11 @@
 
 #include "Expression.h"
 
-class Variable: Expression{
+class Variable: public Expression{
 public:
     virtual double calculate()=0;
     virtual void setValue(double value)=0;
-    virtual double getValue()=0;
+    virtual std::string toString()=0;
 
 };
 #endif //EX3_VARIABLE_H

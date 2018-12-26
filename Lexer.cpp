@@ -119,8 +119,6 @@ void Lexer::firstWord(string &line, string &first_word) {
         }
     }
 }
-
-
 //used to strip the line string from all spaces at the beginning. In addition sets first_word to the first
 //word of the line
 void Lexer::stripFromStart(string &line) {
@@ -135,7 +133,6 @@ void Lexer::stripFromStart(string &line) {
     }
 
 }
-
 void Lexer::stripFromEnd(string &line) {
 
     //strip the line string
@@ -147,7 +144,6 @@ void Lexer::stripFromEnd(string &line) {
         }
     }
 }
-
 //add fileCreator*cl
 //get the para with pushed "while" of "if"
 void Lexer::scopedLexer(string &line, vector<string> &para) {
@@ -360,9 +356,13 @@ void Lexer::openDataServerLexer(string &line, vector<string> &para) {
 
 void Lexer::mainLexer() {
     string line,first_word;
-    this->fIleCreator->readLine(line);
     vector<string> parameters;
     bool flag=false;
+
+    this->fIleCreator->readLine(line);
+    if(this->fIleCreator->wasEndOfFileReached())
+        return;
+
     stripFromStart(line);
     stripFromEnd(line);
 
@@ -412,7 +412,6 @@ void Lexer::mainLexer() {
          cout<<parameters[i]<<"|";
      }
      cout<<endl;
-
 }
 
 void Lexer::lexer() {

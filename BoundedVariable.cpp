@@ -8,7 +8,7 @@
  */
 BoundedVariable::BoundedVariable(ThreadSafeMap<string, double> safe_map, std::string value,
                                  ClientSendingData *cl) : path_value_table(safe_map) {
-    this->value = value;
+    this->path = value;
     this->client = cl;
 }
 /**
@@ -16,15 +16,9 @@ BoundedVariable::BoundedVariable(ThreadSafeMap<string, double> safe_map, std::st
  * @return
  */
 double BoundedVariable::calculate() {
-    return this -> getValue();
+    return this->path_value_table.getValue(this->path);
 }
-/**
- * Return the double value being hold to this variable path
- * @return
- */
-double BoundedVariable::getValue() {
-    return this->path_value_table.getValue(this->value);
-}
+
 /**
  * This function sends a message to the simulator server to set the value assosiated
  * with this path, through the client member
@@ -32,12 +26,12 @@ double BoundedVariable::getValue() {
  */
 void BoundedVariable::setValue(double value) {
 
-    std::string mess = "set" + this->value + " " + std::to_string(value)+"\r\n";
+    std::string mess = "set " + this->path + " " + std::to_string(value)+"\r\n";
 
     if (this->client->SockOpen()) {
         this->client->writeMessage(mess);
         return;
     }
-
+    cout<<"socket not open"<<endl;
 }
 

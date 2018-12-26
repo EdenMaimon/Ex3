@@ -9,6 +9,6 @@ double Plus::calculate(){
 }
 
 Plus::~Plus() {
-    delete left;
-    delete right;
+    if(left!=nullptr) delete left;
+    if(right!= nullptr) delete right;
 }

@@ -14,13 +14,12 @@ public:
     BoundedVariable(ThreadSafeMap <std::string,double> safe_map, std::string value,ClientSendingData* cl);
     virtual double calculate();
     virtual void setValue(double value);
-    virtual double  getValue();
-    std::string getpath(){return this->value;}
+    virtual std::string toString(){return this->path;};
 
 private:
     ThreadSafeMap<std::string, double> path_value_table;
     ClientSendingData* client;
-    std::string value;
+    std::string path; //the path
 
 };
 

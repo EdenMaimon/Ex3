@@ -12,7 +12,7 @@ public:
     DoubleVariable(double value){this->value=value;}
     virtual double calculate(){return this->value;};
     virtual void setValue(double value){this->value=value;};
-    virtual double  getValue(){return this->value;};
+    virtual std::string toString(){return std::to_string(this->value);};
 
 private:
     double value;

@@ -9,7 +9,7 @@ struct Thread_data {
 };
 
 void *DataServerReader::openServer(void *arg) {
-    printf("entered thefunction\n");
+
     struct Thread_data* thread_data;
     thread_data = (Thread_data*) arg;
 

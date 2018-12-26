@@ -9,6 +9,4 @@ double Div::calculate(){
 }
 
 Div::~Div() {
-    delete left;
-    delete right;
-}
+    if(left!=nullptr) delete left; if(right!= nullptr) delete right;}

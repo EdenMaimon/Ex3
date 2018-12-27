@@ -10,6 +10,7 @@
 
 class StringExpression: public Expression{
 public:
+    StringExpression(std::string &s){this->value=s;};
     virtual double calculate(std::vector<Expression *>::iterator &it) {return -111;};
     virtual std::string toString(){return this->value;};
 

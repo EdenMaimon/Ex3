@@ -14,7 +14,6 @@ public:
     virtual int doCommand(std::vector<Expression*>::iterator &it) override;
     virtual std::string toString(){return "IfCommand";};
     ~IfCommand(){if(this->condition!= nullptr)delete this->condition;};
-
 private:
     ConditionParser* condition;
 };

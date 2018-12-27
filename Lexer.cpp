@@ -223,6 +223,8 @@ void Lexer::scopedLexer(string &line, vector<string> &para) {
 
         if(isCloseSuger){
             para.push_back("}");
+        } else{
+            para.push_back("@");
         }
     }
 }

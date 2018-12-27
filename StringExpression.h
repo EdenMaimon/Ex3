@@ -11,7 +11,8 @@
 class StringExpression: public Expression{
 public:
     StringExpression(std::string &s){this->value=s;};
-    virtual double calculate(std::vector<Expression *>::iterator &it) {return -111;};
+    virtual double calculate(std::vector<Expression *>::iterator &it) {this->calculate();};
+    virtual double calculate(){return -1;}
     virtual std::string toString(){return this->value;};
 
 private:

@@ -1,12 +1,7 @@
 
 
 #include <string>
-#include "Minus.h"
-#include "Plus.h"
-#include "Div.h"
-#include "Mul.h"
-#include "Number.h"
-#include "BinaryExpression.h"
+#include "Expression.h"
 
 #include "stack"
 

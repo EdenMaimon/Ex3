@@ -11,6 +11,7 @@
 class Expression {
 public:
     virtual double calculate (std::vector<Expression *>::iterator &it) = 0;
+    virtual double calculate()=0;
     virtual std::string toString()=0;
 };
 

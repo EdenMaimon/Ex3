@@ -11,7 +11,7 @@
 #include "vector"
 #include "DataManager.h"
 
-class EqualityCommand: Command{
+class EqualityCommand: public Command{
 public:
     EqualityCommand(DataManager* data){this->dataManager=data;};
     virtual int doCommand(std::vector<Expression *>::iterator &it) {

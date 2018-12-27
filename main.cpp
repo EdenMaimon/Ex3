@@ -43,16 +43,13 @@ int main(int argc, char** argv)
     string s="\r\n";
    // cl->writeMessage(s);
 
-    Expression* e,*e2,*e3;
-    Variable* d = new BoundedVariable("controls/flight/rudder",cl,path_value_table);
-    d->setValue(1);
 
 
     Lexer lexer(argv[1]);
     lexer.lexer();
 
     string test="5+4/3";
-
+/*
 
     e2=new Number(33);
     e3=new Number(22);
@@ -82,11 +79,12 @@ int main(int argc, char** argv)
     int a;
 
 //    shuntingYard* sh=new shuntingYard();
-    e=sh->string_to_expression("(5+4)/3");
+  //  e=sh->string_to_expression("(5+4)/3");
     cout<<e->toString()<<"="<<e->calculate()<<endl;
 
 
     delete e;
 
 	return 0;
-}
+*/
+ }

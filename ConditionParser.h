@@ -9,9 +9,10 @@
 #include "Command.h"
 #include "Expression.h"
 
-class ConditionParser : Expression{
+class ConditionParser : public Expression{
 public:
     virtual double calculate(std::vector<Expression *>::iterator &it);
+    virtual double calculate(){return -1;};
     virtual std::string toString();
 
 };

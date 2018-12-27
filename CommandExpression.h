@@ -16,6 +16,7 @@ public:
     CommandExpression(Command* c){this->c=c;};
     //The calculate function of a command object will do the command
     virtual double calculate (std::vector<Expression *>::iterator &it) {return this->c->doCommand(it);};
+    virtual double calculate(){return -1;};
     virtual std::string toString(){return this->c->toString();};
     ~CommandExpression(){if(this->c != nullptr) delete this->c;};
 private:

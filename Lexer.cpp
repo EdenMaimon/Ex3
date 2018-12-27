@@ -59,7 +59,7 @@ void Lexer::prepareParameters(std::vector<string>::iterator it, std::vector<std:
             ++it;
 
         }
-            //if there is no unexplixit end to the parameters, look for the spliter
+            //if there is no unexplicit end to the parameters, look for the spliter
         else {
             //look for spliter in the current string
             spliter_pos = (*it).find(spliter);

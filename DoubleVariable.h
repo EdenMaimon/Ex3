@@ -9,6 +9,7 @@
 
 class DoubleVariable : public Variable  {
 public:
+    DoubleVariable(){};
     DoubleVariable(double value){this->value=value;}
     virtual double calculate(){return this->value;};
     virtual void setValue(double value){this->value=value;};

@@ -5,10 +5,11 @@
 #ifndef EX3_COMMAND_H
 #define EX3_COMMAND_H
 
+#include <string>
 class Command {
 public:
-   virtual int doCommand()=0;
+   virtual int doCommand(std::vector<Expression*>::iterator it)=0;
+   virtual std::string toString()=0;
 
 };
-
 #endif //EX3_COMMAND_H

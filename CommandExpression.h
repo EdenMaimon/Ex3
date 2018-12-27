@@ -17,7 +17,7 @@ public:
     double calculate() {
         return this->c->doCommand();
     }
-
+    std::string toString(){return this->c->toString();};
 private:
     Command* c;
 

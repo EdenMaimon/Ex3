@@ -13,11 +13,11 @@
 class CommandExpression : public Expression {
 
 public:
+    CommandExpression(Command* c){this->c=c;};
     //The calculate function of a command object will do the command
-    double calculate() {
-        return this->c->doCommand();
-    }
-    std::string toString(){return this->c->toString();};
+    virtual double calculate (std::vector<Expression *>::iterator &it) {return this->c->doCommand(it);};
+    virtual std::string toString(){return this->c->toString();};
+    ~CommandExpression(){if(this->c != nullptr) delete this->c;};
 private:
     Command* c;
 

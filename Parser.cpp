@@ -8,6 +8,6 @@ void Parser::parser(std::vector<std::string> &string_line){
 
 }
 void openDataServertoExpression (std::vector<std::string> &string_line, std::vector<Expression*> &exp_vector){
-    e.push_back()
+    exp_vector.push_back()
 
 }

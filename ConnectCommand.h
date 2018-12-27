@@ -13,10 +13,9 @@
 class ConnectCommand: public Command{
 public:
     ConnectCommand(ClientSendingData* cl){this->client=cl;};
-    void doCommand(std::vector<Expression*>::iterator it){
-        this->client->creatSocketAndConnectToServer((*(it+1))->toString(),(*(it+2))->calculate());
-    }
-    std::string toString(){return "ConnectCommand";};
+    virtual int doCommand(std::vector<Expression*>::iterator &it){
+        this->client->creatSocketAndConnectToServer((*(it+1))->toString(),(*(it+2))->calculate(it));}
+    virtual std::string toString(){return "ConnectCommand";};
 
 private:
     ClientSendingData* client;

@@ -12,9 +12,9 @@
 
 class PrintCommand: public Command{
 public:
-    void doCommand(std::vector<Expression*>::iterator it){
+    virtual int doCommand(std::vector<Expression*>::iterator &it){
         std::cout<<((*(it+1))->toString())<<std::endl;
     };
-    std::string toString(){return "PrintCommand";};
+    virtual std::string toString(){return "PrintCommand";};
 };
 #endif //EX3_PRINTCOMMAND_H

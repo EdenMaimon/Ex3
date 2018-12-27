@@ -6,10 +6,11 @@
 #define EX3_EXPRESSION_H
 
 #include <string>
+#include <vector>
 
 class Expression {
 public:
-    virtual double calculate() = 0;
+    virtual double calculate (std::vector<Expression *>::iterator &it) = 0;
     virtual std::string toString()=0;
 };
 

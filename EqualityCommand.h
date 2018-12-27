@@ -14,10 +14,10 @@
 class EqualityCommand: Command{
 public:
     EqualityCommand(DataManager* data){this->dataManager=data;};
-    void doCommand(std::vector<Expression *>::iterator it) {
-        this->dataManager->setValueOfVariable((*(it + 1))->toString(),(*(it+2))->calculate());
+    virtual int doCommand(std::vector<Expression *>::iterator &it) {
+        this->dataManager->setValueOfVariable((*(it + 1))->toString(),(*(it+2))->calculate(it));
     };
-    std::string toString(){return "EqualityCommand";};
+    virtual std::string toString(){return "EqualityCommand";};
 private:
     DataManager* dataManager;
 

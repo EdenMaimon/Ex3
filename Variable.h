@@ -9,6 +9,7 @@
 
 class Variable: public Expression{
 public:
+    virtual double calculate(std::vector<Expression *>::iterator &it){return this->calculate();};
     virtual double calculate()=0;
     virtual void setValue(double value)=0;
     virtual std::string toString()=0;

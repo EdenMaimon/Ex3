@@ -414,6 +414,7 @@ void Lexer::mainLexer() {
          cout<<parameters[i]<<"|";
      }
      cout<<endl;
+    this->parser->parser(parameters);
 }
 
 void Lexer::lexer() {

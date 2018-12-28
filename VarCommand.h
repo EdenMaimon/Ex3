@@ -17,7 +17,7 @@ class VarCommand : public Command{
 public:
     VarCommand(DataManager* data){this->dataManager=data;};
     virtual int doCommand(std::vector<Expression *>::iterator &it) ;
-    virtual std::string toString(){return "VarCommand";};
+    virtual std::string toString(){return "var";};
 
 private:
     DataManager* dataManager;

@@ -20,6 +20,7 @@ public:
     void bind(std::string var, std::string anchor);
     double getValueFromPathValueMap(std::string path);
     void setValueOfVariable(std::string var_name, double newValue);
+    Variable* getVariable(std::string var_name);
     ~DataManager();
 
 

@@ -16,8 +16,9 @@ public:
     EqualityCommand(DataManager* data){this->dataManager=data;};
     virtual int doCommand(std::vector<Expression *>::iterator &it) {
         this->dataManager->setValueOfVariable((*(it + 1))->toString(),(*(it+2))->calculate(it));
+        it+=2;
     };
-    virtual std::string toString(){return "EqualityCommand";};
+    virtual std::string toString(){return "=";};
 private:
     DataManager* dataManager;
 

@@ -36,8 +36,7 @@ public:
 
      void setKeyValue(const K& k, const V& v);
      V getValue(const K& k);
-     V findKeyForValue(const K& k);
-
+     V getValueforKeyIfExists(const K& k);
 };
 
 /**
@@ -62,6 +61,14 @@ V ThreadSafeMap<K, V>::getValue(const K& k) {
     return (*this->m_map)[k];
 }
 
+template<typename K, typename V>
+V ThreadSafeMap<K, V>::getValueforKeyIfExists(const K &k) {
+    lock_guard<mutex> guard(*this->m_mutex);
+    typename map<K,V>::iterat it =((*this->m_map)->find(k));
+    if(it!=*this->m_map->end())
+        return (*it);
+    return NULL;
+}
 
 
 #endif //EX3_THREADSAFEMAP_H

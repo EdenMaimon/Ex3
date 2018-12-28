@@ -13,8 +13,8 @@ class SleepComand: public Command {
 public:
 
     virtual int doCommand(std::vector<Expression *>::iterator &it) {
-        sleep((*(it + 1))->calculate(it));
+        sleep((*(it + 1))->calculate(it)/1000);
     };
-    virtual std::string toString(){return "SleepCommand";};
+    virtual std::string toString(){return "sleep";};
 };
 #endif //EX3_SLEEPCOMAND_H

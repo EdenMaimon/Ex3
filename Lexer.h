@@ -7,12 +7,14 @@
 #include <iterator>
 #include <algorithm>
 #include "FileCreator.h"
-
+#include "Parser.h"
 #ifndef EX3_LEXER_H
 #define EX3_LEXER_H
 class Lexer{
 public:
-    Lexer(std::string file_name){this->fIleCreator =new FIleCreator(file_name);};
+    //Lexer(std::string file_name){this->fIleCreator =new FIleCreator(file_name);};
+    Lexer(std::string file_name, Parser* pars){this->fIleCreator =new FIleCreator(file_name);
+    this->parser=pars;};
     ~Lexer(){delete this->fIleCreator;};
     void lexer();
     void mainLexer();
@@ -40,5 +42,6 @@ public:
 
 private:
     FIleCreator* fIleCreator;
+    Parser* parser;
 };
 #endif //EX3_LEXER_H

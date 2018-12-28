@@ -12,7 +12,7 @@ class IfCommand:public Command{
 public:
     IfCommand(){this->condition=new ConditionParser();};
     virtual int doCommand(std::vector<Expression*>::iterator &it) override;
-    virtual std::string toString(){return "IfCommand";};
+    virtual std::string toString(){return "if";};
     ~IfCommand(){if(this->condition!= nullptr)delete this->condition;};
 private:
     ConditionParser* condition;

@@ -87,7 +87,7 @@ Expression *shuntingYard::string_to_expression(std::string str) {
             }
             //if (!flag) { i++; }
         } else if (isOperator(str.at(i))) {
-            while (isPrior(operators.top(), str.at(i))) {
+            while (isPrior(operators.top(), str.at(i)) && operators.top() != '$') {
                 char temp = operators.top();
                 string st = "" + temp;
                 operators.pop();
@@ -109,6 +109,15 @@ Expression *shuntingYard::string_to_expression(std::string str) {
             }
             operators.pop();
             i++;
+        } else if (isalpha(str.at(i)) || str.at(i) == '_') {
+            std::string s = "";
+            while (i < str.length() && (isalpha(str.at(i)) || str.at(i) == '_' || isdigit(str.at(i)))) {
+                s = s + str.at(i);
+                i++;
+            }
+            if (s != "") {
+                final_stack.push(s);
+            }
         }
     }
 
@@ -130,17 +139,28 @@ Expression *shuntingYard::createExpressions(std::stack<std::string> &prefix) {
     //stop condition:
     if (top == "$") { return NULL; }
     if (!isOperator(top)) {
+        Variable *v = this->data_manager->getVariable(top);
+        if (v != nullptr) {
+            return v;
+        }
         return new Number(std::stod(top));
     }
+    Expression *left, *right;
+    right = createExpressions(prefix);
+    left = createExpressions(prefix);
     // else it is an operator.
     if (top == "+") {
-        return new Plus(createExpressions(prefix), createExpressions(prefix));
+        // return new Plus(createExpressions(prefix), createExpressions(prefix));
+        return new Plus(left, right);
     } else if (top == "-") {
-        return new Minus(createExpressions(prefix), createExpressions(prefix));
+        //return new Minus(createExpressions(prefix), createExpressions(prefix));
+        return new Minus(left, right);
     } else if (top == "/") {
-        return new Div(createExpressions(prefix), createExpressions(prefix));
+        //return new Div(createExpressions(prefix), createExpressions(prefix));
+        return new Div(left, right);
     } else if (top == "*") {
-        return new Mul(createExpressions(prefix), createExpressions(prefix));
+        //return new Mul(createExpressions(prefix), createExpressions(prefix));
+        return new Mul(left, right);
     } else {
         throw "input error";
     }

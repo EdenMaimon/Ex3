@@ -18,9 +18,8 @@
 #include "Mul.h"
 #include "Number.h"
 #include "BinaryExpression.h"
-
+#include "Parser.h"
 using namespace std;
-
 
 int main(int argc, char** argv)
 {
@@ -28,27 +27,16 @@ int main(int argc, char** argv)
     ThreadSafeMap<std::string,double>* path_value_table =new ThreadSafeMap<std::string,double>();
     ClientSendingData* cl=new ClientSendingData();
     DataManager* dm=new DataManager(path_value_table);
-   /* DataServerReader server(path_value_table);
-    server.createServerAndThread(5400,10);
+    DataServerReader* server=new DataServerReader(path_value_table);
 
+    Parser* parser=new Parser(server,dm,cl);
 
-    cl->creatSocketAndConnectToServer("10.0.4.2",5402);
-    string s="set controls/flight/rudder -1";
-    s+="\r\n";
-    cl->writeMessage(s);
-    int b;
-*/
+    Lexer* lexer= new Lexer(argv[1],parser);
+    lexer->lexer();
 
-    //s="set controls/flight/rudder -1";
-    string s="\r\n";
-   // cl->writeMessage(s);
+    vector<string> temt_para={"=","rudder","100"};
 
-
-
-    Lexer lexer(argv[1]);
-    lexer.lexer();
-
-    string test="5+4/3";
+    string test="6+4/3";
     shuntingYard sh(dm);
     Expression* t=sh.string_to_expression(test);
     cout<<t->calculate()<<endl;

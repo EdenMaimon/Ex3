@@ -14,6 +14,7 @@ class PrintCommand: public Command{
 public:
     virtual int doCommand(std::vector<Expression*>::iterator &it){
         std::cout<<((*(it+1))->toString())<<std::endl;
+        ++it;
     };
     virtual std::string toString(){return "print";};
 };

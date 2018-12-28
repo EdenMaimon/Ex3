@@ -21,8 +21,9 @@ void Parser::parser(std::vector<std::string> &string_line) {
     this->toExpression(string_line,exp_vector);
 
     std::vector<Expression*>::iterator it=exp_vector.begin();
-
+string temp;
     while(it!=exp_vector.end()){
+        temp=(*it)->toString();
         this->command_map[(*(it))->toString()]->calculate(it);
         ++it;
     }
@@ -71,7 +72,7 @@ void Parser::vartoExpression(std::vector<std::string> &string_line, std::vector<
 
 void Parser::printtoExpression(std::vector<std::string> &string_line, std::vector<Expression *> &exp_vector) {
     exp_vector.push_back(this->command_map["print"]);
-    if (string_line[1].find("\"")) {
+    if (string_line[1].at(0)=='"') {
         string_line[1] = string_line[1].substr(1, string_line[1].length() - 2);
         exp_vector.push_back(new StringExpression(string_line[1]));
         return;
@@ -102,8 +103,8 @@ void Parser::equalitytoExpression(std::vector<std::string> &string_line, std::ve
 }
 
 
-void
-Parser::noScopedCommandstoExpression(std::vector<std::string> &string_line, std::vector<Expression *> &exp_vector) {
+
+void Parser::noScopedCommandstoExpression(std::vector<std::string> &string_line, std::vector<Expression *> &exp_vector) {
     if (string_line[0] == "openDataServer")
         this->openDataServertoExpression(string_line, exp_vector);
     if (string_line[0] == "connect")
@@ -111,11 +112,11 @@ Parser::noScopedCommandstoExpression(std::vector<std::string> &string_line, std:
     if (string_line[0] == "var")
         this->vartoExpression(string_line, exp_vector);
     if (string_line[0] == "=")
-        this->vartoExpression(string_line, exp_vector);
+        this->equalitytoExpression(string_line, exp_vector);
     if (string_line[0] == "sleep")
-        this->vartoExpression(string_line, exp_vector);
+        this->sleeptoExpression(string_line, exp_vector);
     if (string_line[0] == "print")
-        this->vartoExpression(string_line, exp_vector);
+        this->printtoExpression(string_line, exp_vector);
 
 }
 
@@ -128,7 +129,7 @@ void Parser::ScopedtoExpression(std::vector<std::string> &string_line, std::vect
 
     for (int i = 4; i < string_line.size(); ++i) {
         temp_line.clear();
-        while (string_line[j] != "@" || string_line[j] != "}") {
+        while (string_line[j] != "@" && string_line[j] != "}") {
             temp_line.push_back(string_line[j]);
             ++j;
         }

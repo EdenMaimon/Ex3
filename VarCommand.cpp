@@ -4,13 +4,21 @@
 
 #include "VarCommand.h"
 int VarCommand::doCommand(std::vector<Expression *>::iterator &it) {
-
+    (*it);
     if ((*(it + 2))->toString() == "=") {
         this->dataManager->addNewVale((*(it + 1))->toString(), new DoubleVariable());
-        it++;
+        ++it;
         return 2;
     }
     if ((*(it + 2))->toString() == "bind") {
         this->dataManager->bind((*(it+3))->toString(),(*(it+4))->toString());
+        it+=4;
+        return 2;
     }
+    if((*(it + 2))->toString() == "#"){
+        this->dataManager->addNewVale((*(it + 1))->toString(), new DoubleVariable());
+        it+=2;
+        return 2;
+    }
+
 }

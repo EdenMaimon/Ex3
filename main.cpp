@@ -27,8 +27,8 @@ int main(int argc, char** argv)
 
     ThreadSafeMap<std::string,double>* path_value_table =new ThreadSafeMap<std::string,double>();
     ClientSendingData* cl=new ClientSendingData();
-   /* DataManager* dm=new DataManager(path_value_table);
-    DataServerReader server(path_value_table);
+    DataManager* dm=new DataManager(path_value_table);
+   /* DataServerReader server(path_value_table);
     server.createServerAndThread(5400,10);
 
 
@@ -49,6 +49,9 @@ int main(int argc, char** argv)
     lexer.lexer();
 
     string test="5+4/3";
+    shuntingYard sh(dm);
+    Expression* t=sh.string_to_expression(test);
+    cout<<t->calculate()<<endl;
 /*
 
     e2=new Number(33);

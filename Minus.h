@@ -1,6 +1,6 @@
 #include "BinaryExpression.h"
 #include <string>
-
+#pragma once
 using namespace std;
 
 class Minus:public BinaryExpression{

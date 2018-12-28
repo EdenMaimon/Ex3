@@ -10,6 +10,7 @@ class Number : public Expression{
 public:
     Number(double value) {this->value=value;};
     virtual double calculate() {return this->value;};
+    virtual double calculate(std::vector<Expression *>::iterator &it){return this->value;};
     virtual std::string toString(){return std::to_string(this->value);};
     ~Number();
 private:

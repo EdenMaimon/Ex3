@@ -12,7 +12,7 @@ Parser::Parser(DataServerReader *server, DataManager *data, ClientSendingData *c
     this->command_map["sleep"] = new CommandExpression(new SleepComand());
     this->command_map["print"] = new CommandExpression(new PrintCommand());
     this->command_map["if"] = new CommandExpression(new IfCommand());
-    this->shunting = new shuntingYard();
+    this->shunting = new shuntingYard(data);
 }
 
 void Parser::parser(std::vector<std::string> &string_line) {
